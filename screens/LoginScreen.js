@@ -4,24 +4,45 @@ import Dimensions from 'Dimensions';
 let width = Dimensions.get('window').width;
 
 export default class LoginScreen extends React.Component {
-    rendPress() {
+    state = {
+        username: '',
+        password: '',
+        message: ''
+    }
+
+    getInputHandler = key => val => {
+        this.setState({ [key]: val })
+    }
+
+    onLogin() {
         console.log('Mouse click');
     }
 
     render() {
         return (
-            <View style={styles.container} onPress={this.rendPress()}>
+            <View style={styles.container}>
                 <View style={styles.fields}>
+                    {
+                        this.state.username && (
+                            <Text>{this.state.username}</Text>
+                        )
+                    }
+
                     <TextInput style={styles.textInput}
+                        name="username"
                         placeholder='user name'
-                        underlineColorAndroid='transparent'
-                        autoFocus={false} />
+                        autoFocus
+                        value={this.state.username}
+                        onChangeText={this.getInputHandler('username')}
+                    />
                     <TextInput style={styles.textInput}
+                        name="password"
                         placeholder={'password'}
-                        underlineColorAndroid={'transparent'}
-                        secureTextEntry={true} />
+                        value={this.state.password}
+                        onChangeText={this.getInputHandler('password')}
+                        secureTextEntry />
                     <TouchableOpacity activeOpacity={0.5}>
-                        <View style={styles.login} onPress={this.rendPress()}>
+                        <View style={styles.login} onPress={() => this.onLogin()}>
                             <Text style={{ color: '#FFF' }}>Log in</Text>
                         </View>
                     </TouchableOpacity>
@@ -46,7 +67,7 @@ const styles = StyleSheet.create({
     },
     fields: {
         marginTop: 230,
-        alignItems: 'center', 
+        alignItems: 'center',
     },
     avatar: {
         width: 80,
@@ -68,8 +89,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         borderColor: '#ccc',
         borderWidth: 1,
-        borderRadius:5
-
+        borderRadius: 5
     },
 
     login: {
