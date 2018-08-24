@@ -3,6 +3,8 @@ import {Button, View, StyleSheet, Text} from 'react-native'
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
+import {connect} from 'react-redux';
+
 export default class ListScreen extends React.Component {
   static navigationOptions = {
     tabBarIcon: ({focused, tintColor}) => (
@@ -27,3 +29,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 })
+
+const mapStateToProps = state => {
+    movies: state.movies
+}
