@@ -1,13 +1,17 @@
 import { combineReducers } from 'redux'
 
-import { LOG_IN_SENT, LOG_IN_FULFILLED, LOG_IN_REJECTED } from './actions'
+import { LOG_IN_SENT, LOG_IN_FULFILLED, LOG_IN_REJECTED, GET_MOVIES } from './actions'
 
 const merge = (prev, next) => Object.assign({}, prev, next)
 
 // Movie reducer
-const contactReducer = (state = [], action) => {
-    if (action.type === GET_MOVIES) return [...state, action.payload]
-    return state
+const moviesReducer = (state = [], action) => {
+    switch (action.type) {
+        case GET_MOVIES:
+            return [...action.payload];
+        default:
+            return state
+    }
   }
 
 
@@ -26,7 +30,8 @@ const userReducer = (state = {}, action) => {
 
 // All reducer
 const allReducer = combineReducers({
-    user: userReducer
+    user: userReducer,
+    movies: moviesReducer,
 })
 
 export default allReducer;

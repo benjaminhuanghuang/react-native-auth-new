@@ -17,7 +17,6 @@ export default class LoginScreen extends React.Component {
     }
 
     onLogin() {
-        console.log("Login...");
         this.props.navigation.navigate('Main');
     }
 

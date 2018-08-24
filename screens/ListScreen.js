@@ -10,6 +10,8 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import { connect } from 'react-redux';
+//
+import { getMovies } from '../redux/actions';
 
 class ListScreen extends React.Component {
     static navigationOptions = {
@@ -20,48 +22,29 @@ class ListScreen extends React.Component {
 
     constructor(props) {
         super(props);
-
-        var ds = new ScrollView.DataSource({
-            rowHasChanged: (r1, r2) => {
-                r1 !== r2;
-            }
-        });
-        this.state = {
-            dataSource: ds,
-            loaded: false
-        }
     }
 
     componentDidMount() {
-        this.fetchData()
+        this.props.getMovies();
     }
-
-    fetchData() {
-        fetch("https://api.douban.com/v2/movie/in_theaters").then((response) => response.json()).then((responseData) => {
-            this.setState({
-                dataSource: this.state.dataSource.cloneWithRows(responseData.subjects),
-                loaded: true
-            });
-        }).done();
-    };
 
     _renderRow(movie, index) {
         return (
-            <View>
-                <View style={styles.row} key={index}>
+            <View key={index}>
+                <View style={styles.row} >
                     <Image style={styles.thumb}
                         source={{
-                            uri: rowData.images.large
+                            uri: movie.images.large
                         }} />
                     <View style={styles.texts}>
                         <Text style={styles.textTitle}>
-                            {rowData.title}
+                            {movie.title}
                         </Text>
                         <Text style={styles.textTitle}>
-                            年份: {rowData.year}
+                            年份: {movie.year}
                         </Text>
                         <Text style={styles.textTitle}>
-                            豆瓣评分: {rowData.rating.average}
+                            豆瓣评分: {movie.rating.average}
                         </Text>
                     </View>
                 </View>
@@ -86,16 +69,40 @@ class ListScreen extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'center',
+        flex: 1
+    },
+    row: {
+        flexDirection: 'row',
+        padding: 10
+    },
+    separator: {
+        height: 1,
+        backgroundColor: '#EEEEEE'
+    },
+    thumb: {
+        width: 60,
+        height: 80,
+        borderRadius: 2
+    },
+    textTitle: {
         flex: 1,
+        textAlign: "left",
+        paddingLeft: 10,
+        fontWeight: "bold",
+        flexDirection: 'row',
+        color: "#666666"
     },
-    text: {
-        textAlign: 'center',
-    },
+    texts: {
+        flexDirection: 'column',
+        paddingTop: 5
+    }
 })
 
 const mapStateToProps = state => ({
     movies: state.movies
 });
 
-export default connect(mapStateToProps)(ListScreen);
+const mapActionsToProps = {
+    getMovies: getMovies
+}
+export default connect(mapStateToProps, mapActionsToProps)(ListScreen);
