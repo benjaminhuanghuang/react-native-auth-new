@@ -17,7 +17,8 @@ export default class LoginScreen extends React.Component {
     }
 
     onLogin() {
-        console.log('Mouse click');
+        console.log("Login...");
+        this.props.navigation.navigate('Main');
     }
 
     render() {
@@ -44,8 +45,8 @@ export default class LoginScreen extends React.Component {
                         value={this.state.password}
                         onChangeText={this.getInputHandler('password')}
                         secureTextEntry />
-                    <TouchableOpacity activeOpacity={0.5}>
-                        <View style={styles.login} onPress={() => this.onLogin()}>
+                    <TouchableOpacity activeOpacity={0.5} onPress={() => this.onLogin()}>
+                        <View style={styles.login} >
                             <Text style={{ color: '#FFF' }}>Log in</Text>
                         </View>
                     </TouchableOpacity>
