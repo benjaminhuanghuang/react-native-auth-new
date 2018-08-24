@@ -1,18 +1,39 @@
 import React from "react";
-import { Button, View, StyleSheet, Text } from "react-native";
+import { Button, View, StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
+import Dimensions from 'Dimensions';
+let width = Dimensions.get('window').width;
 
 export default class LoginScreen extends React.Component {
-
-    _login = () => {
-        this.props.navigation.navigate("Main");
-    };
-
+    rendPress() {
+        console.log('Mouse click');
+    }
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text style={styles.text}>You are currently logged out.</Text>
-                <Button title="Press to Log In" onPress={this._login} />
+            <View style={styles.container} onPress={this.rendPress()}>
+                <View style={styles.fields}>
+                    <TextInput style={styles.textInput}
+                        placeholder='user name'
+                        underlineColorAndroid='transparent'
+                        autoFocus={false} />
+                    <TextInput style={styles.textInput}
+                        placeholder={'password'}
+                        underlineColorAndroid={'transparent'}
+                        secureTextEntry={true} />
+                    <TouchableOpacity activeOpacity={0.5}>
+                        <View style={styles.login} onPress={this.rendPress()}>
+                            <Text style={{ color: '#FFF' }}>Log in</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.settings}>
+                    <Text style={{ color: '#1E90FF' }}>
+                        Forget password
+                    </Text>
+                    <Text style={{ color: '#1E90FF' }}>
+                        Create account
+                    </Text>
+                </View>
             </View>
         );
     }
@@ -20,10 +41,72 @@ export default class LoginScreen extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: "center",
-        flex: 1
+        flex: 1,
+        alignItems: 'center',  // all sub items align to center
     },
-    text: {
-        textAlign: "center"
+    fields: {
+        marginTop: 230,
+        alignItems: 'center', 
+    },
+    avatar: {
+        width: 80,
+        height: 80,
+        // alignSelf: 'center',   // only single sum item
+        marginTop: 50,
+        marginBottom: 30,
+        borderRadius: 40,
+        borderWidth: 2,
+        borderColor: 'white'
+    },
+
+    textInput: {
+        backgroundColor: '#FFF',
+        width: width * 0.8,
+        height: 38,
+        marginBottom: 2,
+        fontSize: 15,
+        textAlign: 'center',
+        borderColor: '#ccc',
+        borderWidth: 1,
+        borderRadius:5
+
+    },
+
+    login: {
+        height: 40,
+        width: width * 0.8,
+        marginLeft: 10,
+        marginRight: 10,
+        backgroundColor: '#1E90FF',
+        marginTop: 15,
+        borderRadius: 5,
+        justifyContent: 'center',    // align sum items
+        alignItems: 'center'          // align sum items
+    },
+    loginInnerView: {
+        backgroundColor: 'red',
+    },
+    settings: {
+        width: width * 0.8,
+        flexDirection: 'row',
+        marginTop: 13,
+        justifyContent: 'space-between'
+    },
+
+    loginMethods: {
+        flexDirection: 'row',
+        marginTop: 13,
+        // alignItems: 'flex-end'     // sub itmes align to bottom in the cross direction,
+        alignItems: 'center',     // sub itmes align to center in the cross direction,
+        position: 'absolute',
+        bottom: 10,
+        left: 10
+    },
+
+    loginIcon: {
+        width: 40,
+        height: 40,
+        margin: 2,
+        borderRadius: 20
     }
 });
