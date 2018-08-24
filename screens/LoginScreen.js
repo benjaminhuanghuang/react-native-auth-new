@@ -3,7 +3,7 @@ import { Button, View, StyleSheet, Text, TextInput, TouchableOpacity } from "rea
 import Dimensions from 'Dimensions';
 import { Constants, Location, Permissions } from 'expo';
 
-let width = Dimensions.get('window').width;
+let screenWidth = Dimensions.get('window').width;
 
 export default class LoginScreen extends React.Component {
     state = {
@@ -26,7 +26,7 @@ export default class LoginScreen extends React.Component {
                 <View style={styles.messages}>
                     {
                         this.state.message && (
-                            <Text>{this.state.message}</Text>
+                            <Text style={{ color: 'black', textAlign: 'left' }}>{this.state.message}</Text>
                         )
                     }
                 </View>
@@ -67,13 +67,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',  // all sub items align to center
-        paddingTop: Constants.statusBarHeight
+        paddingTop: Constants.statusBarHeight,
     },
     messages: {
         alignItems: 'flex-start',
+        marginTop: 180,
+        width: screenWidth * 0.8
     },
     fields: {
-        marginTop: 230,
+        marginTop: 30,
         alignItems: 'center',
     },
     avatar: {
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
 
     textInput: {
         backgroundColor: '#FFF',
-        width: width * 0.8,
+        width: screenWidth * 0.8,
         height: 38,
         marginBottom: 2,
         fontSize: 15,
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
 
     login: {
         height: 40,
-        width: width * 0.8,
+        width: screenWidth * 0.8,
         marginLeft: 10,
         marginRight: 10,
         backgroundColor: '#1E90FF',
@@ -114,7 +116,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'red',
     },
     settings: {
-        width: width * 0.8,
+        width: screenWidth * 0.8,
         flexDirection: 'row',
         marginTop: 13,
         justifyContent: 'space-between'
