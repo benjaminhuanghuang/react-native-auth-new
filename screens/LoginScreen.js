@@ -1,13 +1,15 @@
 import React from "react";
 import { Button, View, StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
 import Dimensions from 'Dimensions';
+import { Constants, Location, Permissions } from 'expo';
+
 let width = Dimensions.get('window').width;
 
 export default class LoginScreen extends React.Component {
     state = {
         username: '',
         password: '',
-        message: ''
+        message: 'Loing failed'
     }
 
     getInputHandler = key => val => {
@@ -21,13 +23,14 @@ export default class LoginScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.fields}>
+                <View style={styles.messages}>
                     {
-                        this.state.username && (
-                            <Text>{this.state.username}</Text>
+                        this.state.message && (
+                            <Text>{this.state.message}</Text>
                         )
                     }
-
+                </View>
+                <View style={styles.fields}>
                     <TextInput style={styles.textInput}
                         name="username"
                         placeholder='user name'
@@ -64,6 +67,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',  // all sub items align to center
+        paddingTop: Constants.statusBarHeight
+    },
+    messages: {
+        alignItems: 'flex-start',
     },
     fields: {
         marginTop: 230,
