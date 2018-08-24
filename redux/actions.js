@@ -1,3 +1,6 @@
+import { fetchDoubanMovies, login } from '../api'
+
+
 // action types
 export const UPDATE_USER = 'UPDATE_USER'
 export const UPDATE_CONTACT = 'UPDATE_CONTACT'
@@ -22,9 +25,13 @@ export const addContact = newContact => ({
 // async action creator
 export const getMovies = () => async dispatch => {
     dispatch({ type: GET_MOVIES_LOADING })
-    const response = await fetch("https://api.douban.com/v2/movie/in_theaters");
-    const data = await response.json();
-    dispatch({ type: GET_MOVIES, payload: data.subjects })
+    try {
+        const movies = await fetchDoubanMovies();
+        dispatch({ type: GET_MOVIES, payload: movies })
+    } catch (err) {
+        dispatch({ type: GET_MOVIES, payload: err.message })
+    }
+
 }
 
 export const logInUser = (username, password) => async dispatch => {
