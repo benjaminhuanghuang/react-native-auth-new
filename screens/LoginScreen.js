@@ -25,9 +25,8 @@ class LoginScreen extends React.Component {
     getInputHandler = key => val => {
         this.setState({ [key]: val })
     }
-
+    
     componentWillReceivePorp(nextProps) {
-        console.log("LoginSereen props---", nextProps)
         if (nextProps.token) {
             this.props.navigation.navigate('Main');
         }

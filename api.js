@@ -14,7 +14,7 @@ export const login = async (username, password) => {
         const { token } = await response.json();
         return token;
     }
-
+    console.log(response);
     const errMessage = await response.text();
     throw new Error(errMessage);
 }
