@@ -1,34 +1,46 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { Button, View, StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
 import Dimensions from 'Dimensions';
 import { Constants, Location, Permissions } from 'expo';
+//
+import { connect } from 'react-redux';
+//
+import { logInUser } from '../redux/actions';
 
 let screenWidth = Dimensions.get('window').width;
 
-export default class LoginScreen extends React.Component {
+class LoginScreen extends React.Component {
+    static propTypes = {
+        err: PropTypes.string,
+        token: PropTypes.string,
+        logInUser: PropTypes.func,
+    }
+
     state = {
         username: '',
         password: '',
-        message: 'Loing failed'
     }
 
     getInputHandler = key => val => {
         this.setState({ [key]: val })
     }
 
+    componentWillReceivePorp(nextProps) {
+        if (nextProps.token) {
+            this.props.navigation.navigate('Main');
+        }
+    }
+
     onLogin() {
-        this.props.navigation.navigate('Main');
+        this.props.logInUser(this.state.username, this.state.password);
     }
 
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.messages}>
-                    {
-                        this.state.message && (
-                            <Text style={{ color: 'black', textAlign: 'left' }}>{this.state.message}</Text>
-                        )
-                    }
+                    <Text style={styles.error}>{this.props.err}</Text>
                 </View>
                 <View style={styles.fields}>
                     <TextInput style={styles.textInput}
@@ -139,3 +151,13 @@ const styles = StyleSheet.create({
         borderRadius: 20
     }
 });
+
+const mapStateToProps = state => ({
+    err: state.user.loginErr,
+    token: state.user.token
+});
+
+const mapActionsToProps = {
+    logInUser: logInUser
+}
+export default connect(null, mapActionsToProps)(LoginScreen);

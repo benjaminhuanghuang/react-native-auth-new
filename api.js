@@ -5,17 +5,17 @@ export const fetchDoubanMovies = async () => {
 }
 
 export const login = async (username, password) => {
-    const response = await fetch('http://localhost:8000', {
+    const response = await fetch('/http://l-testclus-31.lab.rmsonecloud.net:3000/', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ username, password }),
     })
 
     if (response.ok) {
-        const { token } = await response.json()
-        return token
+        const { token } = await response.json();
+        return token;
     }
 
-    const errMessage = await response.text()
-    throw new Error(errMessage)
+    const errMessage = await response.text();
+    throw new Error(errMessage);
 }

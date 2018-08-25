@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 
-import { LOG_IN_SENT, LOG_IN_FULFILLED, LOG_IN_REJECTED, GET_MOVIES } from './actions'
+import { LOG_IN_SENT, LOG_IN_SUCCESS, LOG_IN_REJECTED, GET_MOVIES } from './actions'
 
 const merge = (prev, next) => Object.assign({}, prev, next)
 
@@ -18,7 +18,7 @@ const moviesReducer = (state = [], action) => {
 // User reducer
 const userReducer = (state = {}, action) => {
     switch (action.type) {
-        case LOG_IN_FULFILLED:
+        case LOG_IN_SUCCESS:
             return merge(state, { token: action.payload })
         case LOG_IN_REJECTED:
             return merge(state, { loginErr: action.payload })
