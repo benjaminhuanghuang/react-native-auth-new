@@ -5,12 +5,11 @@ export const fetchDoubanMovies = async () => {
 }
 
 export const login = async (username, password) => {
-    const response = await fetch('/http://l-testclus-31.lab.rmsonecloud.net:3000/', {
+    const response = await fetch('https://rlw12sclussq02.lab.rmsonecloud.net/v1/token/create', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ username, password }),
     })
-
     if (response.ok) {
         const { token } = await response.json();
         return token;

@@ -27,7 +27,6 @@ const userReducer = (state = {}, action) => {
     }
 }
 
-
 // All reducer
 const allReducer = combineReducers({
     user: userReducer,

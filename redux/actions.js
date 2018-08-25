@@ -37,7 +37,7 @@ export const getMovies = () => async dispatch => {
 export const logInUser = (username, password) => async dispatch => {
     dispatch({ type: LOG_IN_SENT })
     try {
-        const token = await login(username, password)
+        const token = await login(username, password);
         dispatch({ type: LOG_IN_SUCCESS, payload: token })
     } catch (err) {
         dispatch({ type: LOG_IN_REJECTED, payload: err.message })

@@ -18,8 +18,8 @@ class LoginScreen extends React.Component {
     }
 
     state = {
-        username: '',
-        password: '',
+        username: 'tutorial',
+        password: 'tutorial',
     }
 
     getInputHandler = key => val => {
@@ -27,6 +27,7 @@ class LoginScreen extends React.Component {
     }
 
     componentWillReceivePorp(nextProps) {
+        console.log("LoginSereen props---", nextProps)
         if (nextProps.token) {
             this.props.navigation.navigate('Main');
         }
@@ -47,12 +48,14 @@ class LoginScreen extends React.Component {
                         name="username"
                         placeholder='user name'
                         autoFocus
+                        autoCapitalize='none'
                         value={this.state.username}
                         onChangeText={this.getInputHandler('username')}
                     />
                     <TextInput style={styles.textInput}
                         name="password"
                         placeholder={'password'}
+                        autoCapitalize='none'
                         value={this.state.password}
                         onChangeText={this.getInputHandler('password')}
                         secureTextEntry />
@@ -160,4 +163,4 @@ const mapStateToProps = state => ({
 const mapActionsToProps = {
     logInUser: logInUser
 }
-export default connect(null, mapActionsToProps)(LoginScreen);
+export default connect(mapStateToProps, mapActionsToProps)(LoginScreen);
